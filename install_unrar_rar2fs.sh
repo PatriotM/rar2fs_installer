@@ -22,8 +22,8 @@ WORKDIR=$(mktemp -d) || { echo "Fehler: Kann temporäres Verzeichnis nicht erste
 run_cmd cd "$WORKDIR" || exit 1
 
 # Abhängigkeiten installieren
-run_cmd sudo apt-get -q update || exit 1
-run_cmd sudo apt-get -qy install make libfuse-dev libfuse3-dev g++ curl autoconf automake libtool gettext || exit 1
+run_cmd apt-get -q update || exit 1
+run_cmd apt-get -qy install make libfuse-dev libfuse3-dev g++ curl autoconf automake libtool gettext || exit 1
 
 # Neueste unrar-Version ermitteln
 UNRAR_VERSION=$(curl -s https://www.rarlab.com/rar_add.htm | grep -oP 'unrarsrc-\K[0-9]+\.[0-9]+\.[0-9]+' | head -1)
@@ -121,9 +121,9 @@ uninstall-lib:
 EOF
 
 run_cmd make || exit 1
-run_cmd sudo make install || exit 1
+run_cmd make install || exit 1
 run_cmd make lib || exit 1
-run_cmd sudo make install-lib || exit 1
+run_cmd make install-lib || exit 1
 run_cmd cd .. || exit 1
 
 # Neueste rar2fs-Version ermitteln
@@ -141,7 +141,7 @@ run_cmd cd "rar2fs-${RAR2FS_VERSION}" || exit 1
 run_cmd autoreconf -i --force || exit 1
 run_cmd ./configure --with-unrar=../unrar --with-unrar-lib=/usr/lib/ || exit 1
 run_cmd make || exit 1
-run_cmd sudo make install || exit 1
+run_cmd make install || exit 1
 run_cmd cd .. || exit 1
 
 # Bereinigung
